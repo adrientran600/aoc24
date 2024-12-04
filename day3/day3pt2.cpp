@@ -14,15 +14,25 @@ int main() {
     while (getline (file, input_line)) {
         line += input_line;
     }
+    cout << line << endl;
+    
+    bool doo = true;
 
     for (int i = 0; i < line.length(); i++) {
         char curr = line.at(i);
-        
-        if (curr == 'm') {
+        if (curr == 'd') {
+            if (line.substr(i, 4).compare("do()") == 0) {
+                doo = true;
+            } else if (line.substr(i, 7).compare("don't()") == 0) {
+                doo = false;
+            }
+        }
+        if (doo && curr == 'm') {
             int temp_curr = i + 4;
             string num1 = "";
             string num2 = "";
             if (line.substr(i, 4).compare("mul(") == 0) {
+                // cout << line.at(temp_curr) << endl;
                 while (isdigit(line.at(temp_curr))) {
                     num1 += line.at(temp_curr);
                     temp_curr++;
@@ -34,7 +44,8 @@ int main() {
                         temp_curr++;
                     }
                 }
-                if (num2.length() > 0 && line.at(temp_curr) == ')') {
+                if (line.at(temp_curr) == ')') {
+                    // cout << num1 << " " << num2 << endl;
                     sum += stoi(num1) * stoi(num2);
                 }
             }

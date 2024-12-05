@@ -41,9 +41,6 @@ int main() {
 
     ifstream updates("updates.txt");
     while (getline (updates, input_line)) {
-        cout << "running ";
-        int thres = 0;
-        bool correct = true;
         vector<int> update;
         for (int i = 0; i < input_line.length(); i += 3) {
             // cout << input_line.substr(i, 2) << " ";
@@ -56,14 +53,12 @@ int main() {
             shift(update, check.first, check.second);
             check = checkOrder(update, ordering_map);
             while (check.first != -1) {
-                thres++;
                 shift(update, check.first, check.second);
                 check = checkOrder(update, ordering_map);
             }
             sum += update[update.size()/2];
         }
     }
-
     
     file.close();
 
